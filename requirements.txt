@@ -1,0 +1,7 @@
+# Core — stdlib only, no mandatory dependencies
+# Optional UI enhancement
+rich>=13.0.0
+
+# Development / testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
