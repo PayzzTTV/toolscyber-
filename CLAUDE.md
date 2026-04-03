@@ -91,13 +91,13 @@ rootguard/
 
 ---
 
-### 🔜 V2 — Robustesse & Automatisation
+### ✅ V2 — Robustesse & Automatisation (TERMINÉ)
 
-- [ ] **Scheduling** : mode daemon avec scan périodique via `schedule`
-- [ ] **Alerting email** : notification SMTP si anomalie détectée
-- [ ] **Alerting Slack** : webhook Slack sur anomalie
-- [ ] **Chiffrement de la baseline** : AES-256 via `cryptography`
-- [ ] **Signature de la baseline** : hash de la baseline elle-même, stocké séparément
+- [x] **Scheduling** : mode daemon avec scan périodique (`core/scheduler.py`, commande `daemon --interval`)
+- [x] **Alerting email** : notification SMTP si anomalie détectée (`core/alerting.py`)
+- [x] **Alerting Slack** : webhook Slack sur anomalie (`core/alerting.py`)
+- [x] **Chiffrement de la baseline** : AES-256-GCM via `cryptography` (`core/crypto.py`)
+- [x] **Signature de la baseline** : SHA-256 stocké dans `db/baseline.sig` (`core/crypto.py`)
 
 ---
 
