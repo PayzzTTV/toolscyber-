@@ -16,3 +16,13 @@ class BaselineNotFoundError(Exception):
     def __init__(self, path: str) -> None:
         self.path = path
         super().__init__(f"Baseline not found at '{path}'. Run 'baseline' first.")
+
+
+class SignatureError(Exception):
+    """Raised when the baseline signature does not match (tampering detected)."""
+
+    def __init__(self, path: str) -> None:
+        self.path = path
+        super().__init__(
+            f"Baseline signature mismatch for '{path}'. File may have been tampered with."
+        )
