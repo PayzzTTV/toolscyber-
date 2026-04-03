@@ -69,13 +69,13 @@ jobs:
           python-version: "3.11"
 
       - name: Install security tools
-        run: pip install bandit safety
+        run: pip install bandit pip-audit
 
       - name: bandit — static analysis
         run: bandit -r core/ config/ main.py -ll
 
-      - name: safety — dependency CVE check
-        run: safety check -r requirements.txt
+      - name: pip-audit — dependency CVE check
+        run: pip-audit -r requirements.txt
 
   docker-build:
     name: Docker Build

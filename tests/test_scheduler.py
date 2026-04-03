@@ -25,10 +25,11 @@ def test_daemon_calls_scan_each_cycle():
         if call_count >= 2:
             raise KeyboardInterrupt
 
-    with patch("core.scheduler.load_baseline", return_value=BASELINE), \
-         patch("core.scheduler.scan", return_value=RESULTS_CLEAN) as mock_scan, \
-         patch("core.scheduler.report"), \
-         patch("core.scheduler.time.sleep", side_effect=fake_sleep):
+    with patch("core.scheduler.load_baseline", return_value=BASELINE), patch(
+        "core.scheduler.scan", return_value=RESULTS_CLEAN
+    ) as mock_scan, patch("core.scheduler.report"), patch(
+        "core.scheduler.time.sleep", side_effect=fake_sleep
+    ):
         run_daemon(interval_seconds=1, baseline_path="db/baseline.json")
 
     assert mock_scan.call_count == 2
@@ -44,11 +45,11 @@ def test_daemon_calls_notify_on_anomaly():
         if call_count >= 1:
             raise KeyboardInterrupt
 
-    with patch("core.scheduler.load_baseline", return_value=BASELINE), \
-         patch("core.scheduler.scan", return_value=RESULTS_ANOMALY), \
-         patch("core.scheduler.report"), \
-         patch("core.scheduler.notify") as mock_notify, \
-         patch("core.scheduler.time.sleep", side_effect=fake_sleep):
+    with patch("core.scheduler.load_baseline", return_value=BASELINE), patch(
+        "core.scheduler.scan", return_value=RESULTS_ANOMALY
+    ), patch("core.scheduler.report"), patch("core.scheduler.notify") as mock_notify, patch(
+        "core.scheduler.time.sleep", side_effect=fake_sleep
+    ):
         run_daemon(interval_seconds=1, baseline_path="db/baseline.json")
 
     mock_notify.assert_called_once()
@@ -64,11 +65,11 @@ def test_daemon_skips_notify_if_clean():
         if call_count >= 1:
             raise KeyboardInterrupt
 
-    with patch("core.scheduler.load_baseline", return_value=BASELINE), \
-         patch("core.scheduler.scan", return_value=RESULTS_CLEAN), \
-         patch("core.scheduler.report"), \
-         patch("core.scheduler.notify") as mock_notify, \
-         patch("core.scheduler.time.sleep", side_effect=fake_sleep):
+    with patch("core.scheduler.load_baseline", return_value=BASELINE), patch(
+        "core.scheduler.scan", return_value=RESULTS_CLEAN
+    ), patch("core.scheduler.report"), patch("core.scheduler.notify") as mock_notify, patch(
+        "core.scheduler.time.sleep", side_effect=fake_sleep
+    ):
         run_daemon(interval_seconds=1, baseline_path="db/baseline.json")
 
     mock_notify.assert_not_called()
@@ -76,8 +77,9 @@ def test_daemon_skips_notify_if_clean():
 
 def test_daemon_stops_on_keyboard_interrupt():
     """run_daemon s'arrête proprement sur KeyboardInterrupt."""
-    with patch("core.scheduler.load_baseline", return_value=BASELINE), \
-         patch("core.scheduler.scan", return_value=RESULTS_CLEAN), \
-         patch("core.scheduler.report"), \
-         patch("core.scheduler.time.sleep", side_effect=KeyboardInterrupt):
+    with patch("core.scheduler.load_baseline", return_value=BASELINE), patch(
+        "core.scheduler.scan", return_value=RESULTS_CLEAN
+    ), patch("core.scheduler.report"), patch(
+        "core.scheduler.time.sleep", side_effect=KeyboardInterrupt
+    ):
         run_daemon(interval_seconds=1, baseline_path="db/baseline.json")

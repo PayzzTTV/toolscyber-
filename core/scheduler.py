@@ -57,6 +57,7 @@ def run_daemon(
         try:
             if encrypt_key:
                 from core.crypto import decrypt_baseline, verify_signature
+
                 enc_path = baseline_path.replace(".json", ".enc")
                 if os.path.exists(BASELINE_SIG_PATH):
                     verify_signature(enc_path, BASELINE_SIG_PATH)
@@ -85,7 +86,10 @@ def run_daemon(
 
             logger.info(
                 "[DAEMON] Cycle %d — %d files — %d anomalies — next scan in %ds",
-                cycle, len(baseline), anomalies, interval_seconds,
+                cycle,
+                len(baseline),
+                anomalies,
+                interval_seconds,
             )
         except KeyboardInterrupt:
             break

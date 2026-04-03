@@ -6,9 +6,9 @@ import logging
 import os
 import stat
 
+from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-from cryptography.hazmat.primitives import hashes
 
 from core.exceptions import SignatureError
 
@@ -83,8 +83,8 @@ def decrypt_baseline(enc_path: str, key: str) -> dict:
         raw = f.read()
 
     salt = raw[:_SALT_SIZE]
-    nonce = raw[_SALT_SIZE:_SALT_SIZE + _NONCE_SIZE]
-    ciphertext = raw[_SALT_SIZE + _NONCE_SIZE:]
+    nonce = raw[_SALT_SIZE : _SALT_SIZE + _NONCE_SIZE]
+    ciphertext = raw[_SALT_SIZE + _NONCE_SIZE :]
 
     derived = _derive_key(key, salt)
     aesgcm = AESGCM(derived)

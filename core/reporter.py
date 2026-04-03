@@ -15,6 +15,7 @@ _SEVERITY: dict[str, tuple[str, str]] = {
 
 try:
     from rich.console import Console
+
     _RICH_AVAILABLE = True
     _console = Console()
 except ImportError:
@@ -34,7 +35,9 @@ def _report_terminal_rich(results: dict, duration: float, total: int) -> None:
         if not items:
             continue
         severity, color = _SEVERITY[category]
-        _console.print(f"[bold {color}][{severity}] {category.upper()} ({len(items)})[/bold {color}]")
+        _console.print(
+            f"[bold {color}][{severity}] {category.upper()} ({len(items)})[/bold {color}]"
+        )
         for item in items:
             _console.print(f"  [{color}]•[/{color}] {item['path']}")
             if item.get("old_hash"):

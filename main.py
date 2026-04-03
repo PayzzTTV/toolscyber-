@@ -47,9 +47,13 @@ def cmd_baseline(args: argparse.Namespace) -> int:
     if args.encrypt:
         encrypt_key = os.environ.get("ROOTGUARD_ENCRYPT_KEY")
         if not encrypt_key:
-            print("ERROR: ROOTGUARD_ENCRYPT_KEY env var required for --encrypt.", file=sys.stderr)
+            print(
+                "ERROR: ROOTGUARD_ENCRYPT_KEY env var required for --encrypt.",
+                file=sys.stderr,
+            )
             return 2
         from core.crypto import encrypt_baseline, sign_baseline
+
         sign_baseline(BASELINE_PATH, BASELINE_SIG_PATH)
         encrypt_baseline(BASELINE_PATH, encrypt_key, BASELINE_ENC_PATH)
         print(f"Baseline signed   : {BASELINE_SIG_PATH}")
@@ -67,6 +71,7 @@ def cmd_scan(args: argparse.Namespace) -> int:
         if encrypt_key and os.path.exists(BASELINE_ENC_PATH):
             if args.verify and os.path.exists(BASELINE_SIG_PATH):
                 from core.crypto import verify_signature
+
                 try:
                     verify_signature(BASELINE_ENC_PATH, BASELINE_SIG_PATH)
                     logger.info("Baseline signature verified.")
@@ -74,6 +79,7 @@ def cmd_scan(args: argparse.Namespace) -> int:
                     print(f"ERROR: {exc}", file=sys.stderr)
                     return 2
             from core.crypto import decrypt_baseline
+
             baseline = decrypt_baseline(BASELINE_ENC_PATH, encrypt_key)
         else:
             baseline = load_baseline(BASELINE_PATH)
@@ -96,6 +102,7 @@ def cmd_scan(args: argparse.Namespace) -> int:
 def cmd_daemon(args: argparse.Namespace) -> int:
     """Run RootGuard as a periodic scan daemon."""
     from core.scheduler import run_daemon
+
     encrypt_key = os.environ.get("ROOTGUARD_ENCRYPT_KEY")
     interval = args.interval or DAEMON_INTERVAL
     run_daemon(interval_seconds=interval, baseline_path=BASELINE_PATH, encrypt_key=encrypt_key)
@@ -124,7 +131,8 @@ def main() -> None:
     # baseline
     baseline_parser = subparsers.add_parser("baseline", help="Generate a new baseline snapshot.")
     baseline_parser.add_argument(
-        "--encrypt", action="store_true",
+        "--encrypt",
+        action="store_true",
         help="Sign and encrypt the baseline (requires ROOTGUARD_ENCRYPT_KEY).",
     )
 
@@ -132,18 +140,23 @@ def main() -> None:
     scan_parser = subparsers.add_parser("scan", help="Scan and compare against baseline.")
     scan_parser.add_argument("--verbose", "-v", action="store_true", help="Verbose output.")
     scan_parser.add_argument(
-        "--output", choices=["terminal", "json"], default="terminal",
+        "--output",
+        choices=["terminal", "json"],
+        default="terminal",
         help="Output format (default: terminal).",
     )
     scan_parser.add_argument(
-        "--verify", action="store_true",
+        "--verify",
+        action="store_true",
         help="Verify baseline signature before scanning.",
     )
 
     # daemon
     daemon_parser = subparsers.add_parser("daemon", help="Run periodic scan daemon.")
     daemon_parser.add_argument(
-        "--interval", type=int, default=None,
+        "--interval",
+        type=int,
+        default=None,
         help="Scan interval in seconds (default: ROOTGUARD_INTERVAL or 3600).",
     )
 

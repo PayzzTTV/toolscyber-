@@ -9,7 +9,6 @@ import pytest
 
 from core.reporter import report
 
-
 EMPTY_RESULTS = {"modified": [], "new": [], "missing": []}
 SAMPLE_RESULTS = {
     "modified": [{"path": "/etc/passwd", "old_hash": "aaa", "new_hash": "bbb"}],

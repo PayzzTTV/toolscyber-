@@ -27,8 +27,9 @@ SLACK_CFG = {"webhook_url": "https://hooks.slack.com/services/FAKE"}
 
 def test_notify_skips_if_no_anomalies():
     """notify() n'appelle aucun canal si 0 anomalies."""
-    with patch("core.alerting.send_email") as mock_email, \
-         patch("core.alerting.send_slack") as mock_slack:
+    with patch("core.alerting.send_email") as mock_email, patch(
+        "core.alerting.send_slack"
+    ) as mock_slack:
         notify(RESULTS_EMPTY, {"email": EMAIL_CFG, "slack": SLACK_CFG})
         mock_email.assert_not_called()
         mock_slack.assert_not_called()

@@ -8,12 +8,7 @@ import stat
 from datetime import datetime, timezone
 from typing import Any
 
-from config.settings import (
-    BASELINE_PATH,
-    CRITICAL_PATHS,
-    EXTENSIONS_IGNORE,
-    PSEUDO_FS_EXCLUDE,
-)
+from config.settings import BASELINE_PATH, CRITICAL_PATHS, EXTENSIONS_IGNORE, PSEUDO_FS_EXCLUDE
 from core.exceptions import BaselineNotFoundError, HashError
 from core.hasher import hash_file
 
