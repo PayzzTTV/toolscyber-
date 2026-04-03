@@ -94,4 +94,4 @@ def send_slack(results: dict[str, list[dict[str, Any]]], cfg: dict) -> None:
         data=payload,
         headers={"Content-Type": "application/json"},
     )
-    urllib.request.urlopen(req, timeout=10)
+    urllib.request.urlopen(req, timeout=10)  # nosec B310 — URL comes from config, not user input
