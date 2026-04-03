@@ -81,6 +81,35 @@ python3 -m pytest tests/ -v --cov=core --cov=config
 - `/lib`, `/lib64`
 - `/boot`
 
+## Docker
+
+```bash
+# Générer la baseline
+docker compose run --rm scanner python main.py baseline
+
+# Scanner
+docker compose run --rm scanner python main.py scan
+
+# Scan avec rapport JSON
+docker compose run --rm scanner python main.py scan --output json
+```
+
+## CI/CD
+
+| Pipeline | Déclencheur | Jobs |
+|---|---|---|
+| **CI** | Push toutes branches + PR → main | lint → test → sast → docker-build → trivy |
+| **CD** | Push sur `main` ou tag `v*` | build-and-push GHCR → release |
+
+## Métriques DORA
+
+| Métrique | Définition | Objectif |
+|---|---|---|
+| **Lead Time** | Temps entre un commit et son déploiement en production | < 1 heure |
+| **Deployment Frequency** | Fréquence de merge dans `main` | Plusieurs fois par semaine |
+| **Change Failure Rate** | % de déploiements causant un incident | < 5% |
+| **MTTR** | Temps moyen pour corriger un problème détecté en CI | < 30 minutes |
+
 ## Sécurité
 
 - Aucun contenu de fichier n'est loggé (uniquement chemin + hash)

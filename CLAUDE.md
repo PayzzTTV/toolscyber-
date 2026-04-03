@@ -73,21 +73,21 @@ rootguard/
 
 ---
 
-### 🔄 V1.5 — CI/CD & DevSecOps (PROCHAIN SPRINT)
+### ✅ V1.5 — CI/CD & DevSecOps (TERMINÉ)
 
-- [ ] `.github/workflows/ci.yml` — pipeline CI :
-  - [ ] Job `lint` : `flake8` + `black --check` + `isort --check`
-  - [ ] Job `test` : `pytest` avec coverage minimum 80%
-  - [ ] Job `security-sast` : `bandit -r core/`
-  - [ ] Job `docker-build` : vérifier que l'image compile
-  - [ ] Job `docker-scan` : Trivy scan CVE (fail si CRITICAL)
-- [ ] `.github/workflows/cd.yml` — pipeline CD :
-  - [ ] Build + push image Docker sur GHCR (`latest` + tag SHA)
-  - [ ] GitHub Release automatique sur tag `v*`
-- [ ] `Dockerfile` — base `python:3.11-slim`, utilisateur non-root
-- [ ] `docker-compose.yml` — services `scanner` + `scanner-json`
-- [ ] `.dockerignore`
-- [ ] Documenter les 4 métriques DORA dans le `README.md`
+- [x] `.github/workflows/ci.yml` — pipeline CI :
+  - [x] Job `lint` : `flake8` + `black --check` + `isort --check`
+  - [x] Job `test` : `pytest` avec coverage minimum 80%
+  - [x] Job `security-sast` : `bandit -r core/` + `safety check`
+  - [x] Job `docker-build` : vérifier que l'image compile
+  - [x] Job `docker-scan` : Trivy scan CVE (fail si CRITICAL)
+- [x] `.github/workflows/cd.yml` — pipeline CD :
+  - [x] Build + push image Docker sur GHCR (`latest` + tag SHA)
+  - [x] GitHub Release automatique sur tag `v*`
+- [x] `Dockerfile` — base `python:3.11-slim`, utilisateur non-root
+- [x] `docker-compose.yml` — services `scanner` + `scanner-json`
+- [x] `.dockerignore`
+- [x] Métriques DORA documentées dans le `README.md`
 
 ---
 

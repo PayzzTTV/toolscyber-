@@ -1,0 +1,13 @@
+db/baseline.json
+logs/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.coverage
+htmlcov/
+.git/
+.env
+*.egg-info/
+dist/
+build/

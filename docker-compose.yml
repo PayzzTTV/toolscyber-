@@ -1,0 +1,36 @@
+services:
+
+  # Service principal — scan terminal
+  scanner:
+    build: .
+    volumes:
+      - /bin:/bin:ro
+      - /etc:/etc:ro
+      - /usr:/usr:ro
+      - /lib:/lib:ro
+      - rootguard_db:/app/db
+      - ./logs:/app/logs
+    environment:
+      - ROOTGUARD_LOG_LEVEL=INFO
+      - ROOTGUARD_OUTPUT=terminal
+    command: ["scan"]
+
+  # Service alternatif — export JSON
+  scanner-json:
+    build: .
+    profiles:
+      - reports
+    volumes:
+      - /bin:/bin:ro
+      - /etc:/etc:ro
+      - /usr:/usr:ro
+      - /lib:/lib:ro
+      - rootguard_db:/app/db
+      - ./logs:/app/logs
+    environment:
+      - ROOTGUARD_LOG_LEVEL=INFO
+      - ROOTGUARD_OUTPUT=json
+    command: ["scan", "--output", "json"]
+
+volumes:
+  rootguard_db:
